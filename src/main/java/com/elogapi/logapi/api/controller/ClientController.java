@@ -1,33 +1,53 @@
 package com.elogapi.logapi.api.controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.elogapi.logapi.domain.model.Client;
+import com.elogapi.logapi.domain.repository.ClientRepository;
 
 @RestController
 public class ClientController 
 {
-	@GetMapping("/client")
+
+	private ClientRepository clientRepository;
+	
+	
+	public ClientController(ClientRepository clientRepository) {
+		super();
+		this.clientRepository = clientRepository;
+	}
+
+
+
+	@GetMapping("/clients")
 	public List<Client> list()
 	{
-		Client cli1 = new Client();
-		cli1.setId(1L);
-		cli1.setName("Júlio Cesar");
-		cli1.setEmail("juliocesar27072004@outlook.com");
-		cli1.setTelephone("(81) 99239-0357");
-		
-		var cli2 = new Client();
-		cli2.setId(2L);
-		cli2.setName("Bianca Alves");
-		cli2.setEmail("biacaalves@outlook.com");
-		cli2.setTelephone("(81) 99532-1337");
-		
-		
-		
-		return Arrays.asList(cli1,cli2);
+		return clientRepository.findAll();
 	}
+	
+	@GetMapping("/clients/{clientId}")
+	public ResponseEntity<Client> search(@PathVariable Long clientId)
+	{
+		Optional<Client> client =  clientRepository.findById(clientId);
+		
+		if(client.isPresent()) {
+			return ResponseEntity.ok(client.get());
+		}
+		
+		return ResponseEntity.notFound().build();
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 }

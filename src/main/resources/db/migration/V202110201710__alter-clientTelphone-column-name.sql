@@ -1,0 +1,1 @@
+alter table LogClient rename column clientTelPhone to clientTelephone;
