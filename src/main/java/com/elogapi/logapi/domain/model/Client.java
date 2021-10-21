@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "logclient")
@@ -18,26 +21,25 @@ public class Client
 	@Column(name = "clientid")
 	private Long id;
 	
+	
 	@Column(name = "clientname")
+	@NotBlank
+	@Size(max = 60)
 	private String name;
 	
 	@Column(name = "clientemail")
+	@NotBlank
+	@Email
+	@Size(max = 255)
 	private String email;
 	
 	@Column(name = "clienttelephone")
+	@NotBlank
+	@Size(max = 20)
 	private String telephone;
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
 // Boilerplate code	
 	@Override
 	public int hashCode() 
