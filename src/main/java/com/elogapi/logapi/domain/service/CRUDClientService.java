@@ -12,6 +12,12 @@ public class CRUDClientService
 {
 	private ClientRepository clientRepository;
 
+	public Client search(Long clientId)
+	{
+		return clientRepository.findById(clientId)
+				.orElseThrow(() -> new BusinessException("Client not found"));
+	}
+	
 	@Transactional
 	public Client save(Client client)
 	{

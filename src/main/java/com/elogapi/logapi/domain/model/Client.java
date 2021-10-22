@@ -10,12 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
+
+import com.elogapi.logapi.domain.ValidationGroups;
 
 @Entity
 @Table(name = "logclient")
 public class Client 
 {
+	@NotNull(groups = ValidationGroups.ClientId.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "clientid")
@@ -23,24 +28,24 @@ public class Client
 	
 	
 	@Column(name = "clientname")
-	@NotBlank
+	@NotBlank(groups = Default.class)
 	@Size(max = 60)
 	private String name;
 	
 	@Column(name = "clientemail")
-	@NotBlank
+	@NotBlank(groups = Default.class)
 	@Email
 	@Size(max = 255)
 	private String email;
 	
 	@Column(name = "clienttelephone")
-	@NotBlank
+	@NotBlank(groups = Default.class)
 	@Size(max = 20)
 	private String telephone;
 	
 	
-	
 // Boilerplate code	
+	
 	@Override
 	public int hashCode() 
 	{
