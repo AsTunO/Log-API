@@ -15,6 +15,5 @@ create table Delivery
     
     primary key(id)
 );
-
 alter table delivery add constraint fk_delivery_client
 foreign key(delivery_client_id) references logclient (clientId);
